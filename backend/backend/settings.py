@@ -137,7 +137,7 @@ WSGI_APPLICATION = "backend.wsgi.application"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',  # Update as needed
+        'ENGINE': 'django.db.backends.mysql',  # Update as needed
         'NAME': os.getenv('DATABASE_NAME'),
         'USER': os.getenv('DATABASE_USER'),
         'PASSWORD': os.getenv('DATABASE_PASSWORD'),
@@ -194,7 +194,7 @@ CSRF_COOKIE_SECURE = True  # Ensures the CSRF cookie is sent only over HTTPS
 CSRF_COOKIE_HTTPONLY = False  # Must be False since JavaScript needs to read the token
 CSRF_COOKIE_SAMESITE = 'Strict' # Prevent cross-origin requests
 
-AUTH_USER_MODEL = 'blog_api.User'
+# AUTH_USER_MODEL = 'blog_api.User'
 
 TESTING = os.getenv("TESTING", 'False') == 'True'
 
@@ -203,5 +203,3 @@ if TESTING:
     MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media', 'test_media')
 else:
     MEDIA_URL = '/media/'
-    MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media')
-
