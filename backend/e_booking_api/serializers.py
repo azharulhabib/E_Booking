@@ -57,13 +57,16 @@ class RentalListingSerializer(serializers.ModelSerializer):
     class Meta:
         model = RentalListing
         fields = '__all__'
-        read_only_fields = ('id')
+        read_only_fields = ('id',)
         
 class RentalImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = RentalImage
         fields = '__all__'
-        read_only_fields = ('id')
+        read_only_fields = ('id',)
+        extra_kwargs = {
+            'image': {'required': True}
+        }
         
     def validate_rental_image(self, value):
         max_size = 5 * 1024 * 1024
@@ -81,28 +84,28 @@ class FavouriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Favourite
         fields = '__all__'
-        read_only_fields = ('id')
+        read_only_fields = ('id',)
         
 class BookingHistorySerializer(serializers.ModelSerializer):
     class Meta:
         model = BookingHistory
         fields = '__all__'
-        read_only_fields = ('id')
+        read_only_fields = ('id',)
         
 class BookingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Booking
         fields = '__all__'
-        read_only_fields = ('id')
+        read_only_fields = ('id',)
         
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = '__all__'
-        read_only_fields = ('id')
+        read_only_fields = ('id',)
         
 class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment
         fields = '__all__'
-        read_only_fields = ('id')
+        read_only_fields = ('id',)

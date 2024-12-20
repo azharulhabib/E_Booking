@@ -114,7 +114,8 @@ class Customer(User):
 class Owner(User):
     phone_number = PhoneNumberField(unique=True)
     address = models.CharField(max_length=255)
-    total_earning = models.DecimalField(max_digits=20, decimal_places=2, default=0)
+    #Default
+    total_earning = models.DecimalField(max_digits=20, decimal_places=2, default=0) 
     
     def save(self, *args, **kwargs):
         """Running Validators before saving"""

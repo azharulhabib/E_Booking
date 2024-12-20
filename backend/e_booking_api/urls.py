@@ -8,10 +8,10 @@ from . import views
 
 
 router = DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'admins', views.AdminViewSet)
-router.register(r'customers', views.CustomerViewSet)
-router.register(r'owners', views.OwnerViewSet)
+router.register(r'users', views.UserViewSet, basename='user')
+router.register(r'admins', views.AdminViewSet, basename='admin')
+router.register(r'customers', views.CustomerViewSet, basename='customer')
+router.register(r'owners', views.OwnerViewSet, basename='owner')
 router.register(r'rentallistings', views.RentalListingViewSet)
 
 urlpatterns = [

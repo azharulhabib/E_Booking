@@ -6,6 +6,7 @@ from rest_framework import status
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
+from django.db.models import Q
 from .models import (
     Admin,
     Customer,
@@ -36,8 +37,14 @@ from .serializers import (
 # Create your views here.
 class UserViewSet(ModelViewSet):
     """Viewset for User model"""
+    # queryset = get_user_model().objects.all()
     serializer_class = UserSerializer
     authentication_classes = [JWTAuthentication]
+    
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            return get_user_model().objects.all()
+        return get_user_model().objects.none()
     
     def get_permissions(self):
         """Set permissions based on action"""
@@ -93,9 +100,9 @@ class AdminViewSet(UserViewSet):
 
     def get_queryset(self):
         """Admin and superusers can access all user objects."""
-        if isinstance(self.request.user, Admin) or self.request.user.is_superuser:
-            return get_user_model().objects.all()
-        return get_user_model().objects.none()
+        if self.request.user.is_staff or self.request.user.is_superuser:
+            return Admin.objects.all()
+        return Admin.objects.none()
 
 
 class CustomerViewSet(UserViewSet):
@@ -103,10 +110,18 @@ class CustomerViewSet(UserViewSet):
     serializer_class = CustomerSerializer
 
     def get_queryset(self):
-        if isinstance(self.request.user, Admin) or self.request.user.is_superuser:
-            return Customer.objects.all().union(Owner.objects.all())
-        elif isinstance(self.request.user, Customer) or isinstance(self.request.user, Owner):
-            return Customer.objects.all().union(Owner.objects.all())
+        current_user = self.request.user
+        
+        if current_user.is_superuser or current_user.is_staff:
+            return Customer.objects.all()
+
+        # Check if the user is a Customer or Owner
+        if hasattr(current_user, "customer") or hasattr(current_user, "owner"):
+            # customer_queryset = Customer.objects.all()
+            # owner_queryset = Owner.objects.all()
+            # return customer_queryset | owner_queryset
+            return Customer.objects.all()
+            
         return Customer.objects.none()
 
 
@@ -115,10 +130,18 @@ class OwnerViewSet(UserViewSet):
     serializer_class = OwnerSerializer
 
     def get_queryset(self):
-        if isinstance(self.request.user, Admin) or self.request.user.is_superuser:
-            return Customer.objects.all().union(Owner.objects.all())
-        elif isinstance(self.request.user, Customer) or isinstance(self.request.user, Owner):
-            return Customer.objects.all().union(Owner.objects.all())
+        current_user = self.request.user
+        
+        if current_user.is_superuser or current_user.is_staff:
+            return Owner.objects.all()
+
+        # Check if the user is a Customer or Owner
+        if hasattr(current_user, "customer") or hasattr(current_user, "owner"):
+            # customer_queryset = Customer.objects.all()
+            # owner_queryset = Owner.objects.all()
+            # return customer_queryset | owner_queryset
+            return Owner.objects.all()
+            
         return Owner.objects.none()
         
 class RentalListingViewSet(ModelViewSet):

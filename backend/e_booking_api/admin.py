@@ -67,12 +67,22 @@ class CustomerAdmin(UserAdmin):
             'fields': ('phone_number', 'address'),
         }),
     )
+    add_fieldsets = UserAdmin.add_fieldsets + (
+        ('Customer Specific Info', {
+            'fields': ('phone_number', 'address'),
+        }),
+    )
 
 # Owner admin
 class OwnerAdmin(UserAdmin):
     """Custom Admin for Owner Model"""
     list_display = ('email', 'name', 'phone_number', 'address', 'total_earning')
     fieldsets = UserAdmin.fieldsets + (
+        ('Owner Specific Info', {
+            'fields': ('phone_number', 'address', 'total_earning'),
+        }),
+    )
+    add_fieldsets = UserAdmin.add_fieldsets + (
         ('Owner Specific Info', {
             'fields': ('phone_number', 'address', 'total_earning'),
         }),
