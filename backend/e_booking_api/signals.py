@@ -6,9 +6,9 @@ from .models import User
 
 @receiver(post_save, sender=User)
 def save_user_slug(sender, instance, created, **kwargs):
-    """Create slug for user using username"""
-    if created or (slugify(instance.username) != instance.slug):
-        instance.slug = slugify(instance.username)
+    """Create slug for user using name"""
+    if created or (slugify(instance.name) != instance.slug):
+        instance.slug = slugify(instance.name)
         instance.save()
 
 @receiver(post_save, sender=User)

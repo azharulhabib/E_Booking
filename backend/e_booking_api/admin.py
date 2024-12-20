@@ -5,9 +5,10 @@ from .forms import CustomUserCreationForm
 
 class UserAdmin(BaseUserAdmin):
     """Custom User Admin"""
-    list_display = ('email', 'username')
+    list_display = ('email', 'name')
+    ordering = ['email']
     list_filter = ('groups',)
-    prepopulated_fields = {"slug": ("username",)}
+    prepopulated_fields = {"slug": ("name",)}
 
     #Fields to be displayed on the user detail page
     fieldsets = (
@@ -15,7 +16,7 @@ class UserAdmin(BaseUserAdmin):
             'fields': ('email', 'password', 'slug')
         }),
         ('Personal_info', {
-            'fields': ('name')
+            'fields': ('name',)
         }),
         ('Permissions', {
             'fields': ('is_active', 'is_staff', 'groups', 'user_permissions')
@@ -33,3 +34,5 @@ class UserAdmin(BaseUserAdmin):
             'fields': ('email', 'name', 'slug', 'password1', 'password2', 'is_active', 'is_staff')
         }),
     )
+    
+admin.site.register(User, UserAdmin)
