@@ -136,6 +136,7 @@ class RentalListing(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     booking_schedule = models.DateField()
     slug = models.SlugField(max_length=255, unique=True, blank=True, null=True)
+    #approved
     
     def save(self, *args, **kwargs):
         """Running Validators before saving"""
