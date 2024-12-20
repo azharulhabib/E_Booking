@@ -9,6 +9,10 @@ from . import views
 
 router = DefaultRouter()
 router.register(r'users', views.UserViewSet)
+router.register(r'admins', views.AdminViewSet)
+router.register(r'customers', views.CustomerViewSet)
+router.register(r'owners', views.OwnerViewSet)
+router.register(r'rentallistings', views.RentalListingViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
