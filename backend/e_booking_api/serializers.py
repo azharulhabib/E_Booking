@@ -6,17 +6,17 @@ from .models import (
     Owner,
     RentalListing,
     RentalImage,
-    Favourite,
-    BookingHistory,
+    UtilityBillImage,
+    CustomerBookingHistory,
+    OwnerBookingHistory,
     Booking,
-    Review,
     Payment
 )
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ('id', 'email', 'password', 'name', 'slug', 'is_active', 'is_staff')
+        fields = ('id', 'email', 'password', 'name', 'phone_number', 'slug', 'is_active', 'is_staff', 'is_superuser')
         read_only_fields = ('id',)
         extra_kwargs = {
             'password': {
@@ -41,68 +41,83 @@ class UserSerializer(serializers.ModelSerializer):
 class AdminSerializer(UserSerializer):
     class Meta(UserSerializer.Meta):
         model = Admin
-        fields = UserSerializer.Meta.fields + ()
+        
+    def create(self, validated_data):
+        password = validated_data.pop('password', None)
+        admin = Admin.objects.create(**validated_data)
+        
+        if password:
+            admin.set_password(password)
+            admin.save()
+        
+        return admin
         
 class CustomerSerializer(UserSerializer):
     class Meta(UserSerializer.Meta):
         model = Customer
-        fields = UserSerializer.Meta.fields + ('phone_number', 'address')
+       
+    def create(self, validated_data):
+        password = validated_data.pop('password', None)
+        customer = Customer.objects.create(**validated_data)
         
+        if password:
+            customer.set_password(password)
+            customer.save()
+        
+        return customer
+       
 class OwnerSerializer(UserSerializer):
     class Meta(UserSerializer.Meta):
         model = Owner
-        fields = UserSerializer.Meta.fields + ('phone_number', 'address', 'total_earning')
+    
+    def create(self, validated_data):
+        password = validated_data.pop('password', None)
+        owner = Owner.objects.create(**validated_data)
+        
+        if password:
+            owner.set_password(password)
+            owner.save()
+        
+        return owner
         
 class RentalListingSerializer(serializers.ModelSerializer):
     class Meta:
         model = RentalListing
         fields = '__all__'
-        read_only_fields = ('id')
+        read_only_fields = ('id',)
         
 class RentalImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = RentalImage
         fields = '__all__'
-        read_only_fields = ('id')
+        read_only_fields = ('id',)
         
-    def validate_rental_image(self, value):
-        max_size = 5 * 1024 * 1024
-        valid_file_types = ['image/jpeg', 'image/png']
-        
-        if value.size > max_size:
-            raise serializers.ValidationError('File size must be less than 5MB.')
-        
-        if value.content_type not in valid_file_types:
-            raise serializers.ValidationError('File type must be JPEG or PNG.')
-        
-        return value
-    
-class FavouriteSerializer(serializers.ModelSerializer):
+class UtilityImageSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Favourite
+        model = UtilityBillImage
         fields = '__all__'
-        read_only_fields = ('id')
+        read_only_fields = ('id',)
         
-class BookingHistorySerializer(serializers.ModelSerializer):
+class CustomerBookingHistorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = BookingHistory
+        model = CustomerBookingHistory
         fields = '__all__'
-        read_only_fields = ('id')
+        read_only_fields = ('id',)
+        
+class OwnerBookingHistorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OwnerBookingHistory
+        fields = '__all__'
+        read_only_fields = ('id',)
         
 class BookingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Booking
         fields = '__all__'
-        read_only_fields = ('id')
-        
-class ReviewSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Review
-        fields = '__all__'
-        read_only_fields = ('id')
+        read_only_fields = ('id',)
         
 class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment
         fields = '__all__'
-        read_only_fields = ('id')
+        read_only_fields = ('id',)
