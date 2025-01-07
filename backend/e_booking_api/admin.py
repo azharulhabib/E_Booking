@@ -7,10 +7,10 @@ from .models import (
     Owner,
     RentalListing,
     RentalImage,
-    Favourite,
-    BookingHistory,
+    UtilityBillImage,
+    CustomerBookingHistory,
+    OwnerBookingHistory,
     Booking,
-    Review,
     Payment
 )
 
@@ -21,7 +21,7 @@ class UserAdmin(BaseUserAdmin):
     list_display = ('email', 'name')
     ordering = ['email']
     list_filter = ('groups',)
-    prepopulated_fields = {"slug": ("name",)}
+    prepopulated_fields = {"slug": ("email",)}
 
     #Fields to be displayed on the user detail page
     fieldsets = (
@@ -29,7 +29,7 @@ class UserAdmin(BaseUserAdmin):
             'fields': ('email', 'password', 'slug')
         }),
         ('Personal_info', {
-            'fields': ('name',)
+            'fields': ('name', 'phone_number')
         }),
         ('Permissions', {
             'fields': ('is_active', 'is_staff', 'groups', 'user_permissions')
@@ -44,49 +44,10 @@ class UserAdmin(BaseUserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'name', 'slug', 'password1', 'password2', 'is_active', 'is_staff')
+            'fields': ('email', 'name', 'phone_number', 'slug', 'password1', 'password2', 'is_active', 'is_staff')
         }),
     )
     
-# Admin admin
-class AdminAdmin(UserAdmin):
-    """Custom Admin for Admin Model"""
-    list_display = ('email', 'name', 'is_staff')
-    fieldsets = UserAdmin.fieldsets + (
-        ('Admin Specific Info', {
-            'fields': (),
-        }),
-    )
-
-# Customer admin
-class CustomerAdmin(UserAdmin):
-    """Custom Admin for Customer Model"""
-    list_display = ('email', 'name', 'phone_number', 'address')
-    fieldsets = UserAdmin.fieldsets + (
-        ('Customer Specific Info', {
-            'fields': ('phone_number', 'address'),
-        }),
-    )
-    add_fieldsets = UserAdmin.add_fieldsets + (
-        ('Customer Specific Info', {
-            'fields': ('phone_number', 'address'),
-        }),
-    )
-
-# Owner admin
-class OwnerAdmin(UserAdmin):
-    """Custom Admin for Owner Model"""
-    list_display = ('email', 'name', 'phone_number', 'address', 'total_earning')
-    fieldsets = UserAdmin.fieldsets + (
-        ('Owner Specific Info', {
-            'fields': ('phone_number', 'address', 'total_earning'),
-        }),
-    )
-    add_fieldsets = UserAdmin.add_fieldsets + (
-        ('Owner Specific Info', {
-            'fields': ('phone_number', 'address', 'total_earning'),
-        }),
-    )
     
 class RentalListingAdmin(admin.ModelAdmin):
     """Custom Admin for RentalListing Model"""
@@ -95,13 +56,13 @@ class RentalListingAdmin(admin.ModelAdmin):
 
 # Register models with their custom admin classes
 admin.site.register(User, UserAdmin)
-admin.site.register(Admin, AdminAdmin)
-admin.site.register(Customer, CustomerAdmin)
-admin.site.register(Owner, OwnerAdmin)
+admin.site.register(Admin)
+admin.site.register(Customer)
+admin.site.register(Owner)
 admin.site.register(RentalListing, RentalListingAdmin)
 admin.site.register(RentalImage)
-admin.site.register(Favourite)
-admin.site.register(BookingHistory)
+admin.site.register(UtilityBillImage)
+admin.site.register(CustomerBookingHistory)
+admin.site.register(OwnerBookingHistory)
 admin.site.register(Booking)
-admin.site.register(Review)
 admin.site.register(Payment)
