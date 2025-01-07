@@ -7,9 +7,10 @@ import { saveListing } from '@/actions/listing'
 import styles from './listing-form.module.css'
 
 export default function ListingForm({ initialData }) {
-  const router = useRouter()
+  const router = useRouter();
+  const [listing_id, setListingId] = useState(null);
   const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-  const [step, setStep] = useState(1)
+  const [step, setStep] = useState(1);
   const [formData, setFormData] = useState(initialData || {
     title: '',
     description: '',
@@ -20,26 +21,79 @@ export default function ListingForm({ initialData }) {
     booking_schedule: '',
     home_size: '',
     floor: '',
-  })
-  const [rentalImage, setRentalImage] = useState(null)
-  const [utilityImage, setUtilityImage] = useState(null)
+  });
+  const [rentalImage, setRentalImage] = useState(null);
+  const [utilityImage, setUtilityImage] = useState(null);
 
   async function handleBasicInfoSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
+    const initial_data = new FormData(e.target);
+    const id = initialData ? initialData.id : null;
+    const title = initial_data.get('title');
+    const description = initial_data.get('description');
+    const price = initial_data.get('price');
+    const address = initial_data.get('address');
+    const city = initial_data.get('city');
+    const state = initial_data.get('state');
+    const booking_schedule = initial_data.get('booking_schedule');
+    const home_size = initial_data.get('home_size');
+    const floor = initial_data.get('floor');
 
-    const result = await saveListing(new FormData(e.target))
+    const data = {}
+
+    if (id) {
+      data.id = id;
+    };
+
+    if (title) {
+      data.title = title;
+    };
+
+    if (description) {
+      data.description = description;
+    };
+
+    if (price) {
+      data.price = price;
+    };
+
+    if (address) {
+      data.address = address;
+    };
+
+    if (city) {
+      data.city = city;
+    };
+
+    if (state) {
+      data.state = state;
+    };
+
+    if (booking_schedule) {
+      data.booking_schedule = booking_schedule;
+    };
+
+    if (home_size) {
+      data.home_size = home_size;
+    };
+
+    if (floor) {
+      data.floor = floor;
+    };
+
+    const result = await saveListing(data)
     if (result.success) {
-      setStep(2)
-    }
-
-    console.log('result', result);
-  }
+        setListingId(result.id);
+        setStep(2);
+    };
+  };
 
   async function handleRentalImageSubmit(e) {
-    e.preventDefault()
-    const accessToken = await retrieveAccessToken()
-    const formData = new FormData()
-    formData.append('image', rentalImage)
+    e.preventDefault();
+    const accessToken = await retrieveAccessToken();
+    const formData = new FormData();
+    formData.append('listing', listing_id);
+    formData.append('image', rentalImage);
     
     try {
       const response = await fetch(`${API_BASE_URL}/rental-images/upload/`, {
@@ -48,21 +102,24 @@ export default function ListingForm({ initialData }) {
         headers: {
           'Authorization': `Bearer ${accessToken}`, // Add the Authorization header
         },
-      })
-      
+      });
+
       if (response.ok) {
         setStep(3)
-      }
+      };
     } catch (error) {
       console.error('Error uploading rental image:', error)
-    }
-  }
+    };
+  };
 
   async function handleUtilityImageSubmit(e) {
-    e.preventDefault()
-    const accessToken = retrieveAccessToken()
-    const formData = new FormData()
-    formData.append('image', utilityImage)
+    e.preventDefault();
+    const accessToken = await retrieveAccessToken();
+    const formData = new FormData();
+    console.log('accessToken', accessToken);
+    console.log('listing_id', listing_id);
+    formData.append('listing', listing_id);
+    formData.append('image', utilityImage);
     
     try {
       const response = await fetch(`${API_BASE_URL}/utility-bill-images/upload/`, {
@@ -71,15 +128,16 @@ export default function ListingForm({ initialData }) {
         headers: {
           'Authorization': `Bearer ${accessToken}`, // Add the Authorization header
         },
-      })
-      
-      if (response.ok) {
-        router.push('/eazystay/protected/dashboard')
-      }
+      });
     } catch (error) {
       console.error('Error uploading utility image:', error)
-    }
-  }
+    };
+  };
+
+  async function handleCompleteSubmit(e) {
+    e.preventDefault();
+    router.push('/eazystay/protected/dashboard')
+  };
 
   return (
     <div className={styles.container}>
@@ -223,6 +281,7 @@ export default function ListingForm({ initialData }) {
           <form onSubmit={handleRentalImageSubmit} className={styles.form}>
             <h2>Upload Rental Images</h2>
             
+            {console.log(listing_id)}
             <div className={styles.formGroup}>
               <label htmlFor="rental_image">Rental Images</label>
               <input
@@ -300,7 +359,13 @@ export default function ListingForm({ initialData }) {
                 Back
               </button>
               <button type="submit" className={styles.button}>
-                Save & Complete
+                Save
+              </button>
+              <button 
+                type="button"
+                onClick={handleCompleteSubmit}
+                className={styles.button}>
+                Complete
               </button>
             </div>
           </form>

@@ -29,28 +29,22 @@ export async function updateListing(listing) {
   }
 }
 
-export async function saveListing(formData) {
+export async function saveListing(data) {
   try {
-    const listingData = {
-      title: formData.get('title'),
-      description: formData.get('description'),
-      price: formData.get('price'),
-      address: formData.get('address'),
-      city: formData.get('city'),
-      state: formData.get('state'),
-      booking_schedule: formData.get('booking_schedule'),
-      home_size: formData.get('home_size'),
-      floor: formData.get('floor'),
-    }
-
-    if (formData.get('id')) {
-      listingData.id = formData.get('id')
-      await updateRentalListing(listingData)
+    if (data.id) {
+      const response = await updateRentalListing(data)
+      if (response.status) {
+        return { error: 'Failed to update listing' }
+      }
+      return { id: response.id, success: true }
     } else {
-      await createRentalListing(listingData)
+      const response = await createRentalListing(data)
+      if (response.status) {
+        return { error: 'Failed to create listing' }
+      }
+      return { id: response.id, success: true }
     }
 
-    return { success: true }
   } catch (error) {
     return { error: error.message }
   }

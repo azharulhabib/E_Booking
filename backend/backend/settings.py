@@ -203,3 +203,4 @@ if TESTING:
     MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media', 'test_media')
 else:
     MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media')

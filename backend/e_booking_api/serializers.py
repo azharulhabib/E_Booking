@@ -86,10 +86,6 @@ class RentalListingSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ('id',)
         
-    def create(self, validated_data):
-        print('validated_data', validated_data)
-        return super().create(validated_data)
-        
 class RentalImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = RentalImage

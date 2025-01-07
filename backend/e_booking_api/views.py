@@ -49,7 +49,7 @@ class LoginView(TokenObtainPairView):
         elif Owner.objects.filter(id=user.id).exists():
             user_role = 'Employee'
         elif Admin.objects.filter(id=user.id).exists():
-            user_role = 'Supplier'
+            user_role = 'Admin'
         elif user.is_superuser:
             user_role = 'Superuser'
         else:
@@ -249,7 +249,6 @@ class PostRentalImage(APIView):
     def post(self, request):
         try:
             data = request.data
-            print('data', data)
             serializer = RentalImageSerializer(data=data)
             if serializer.is_valid():
                 serializer.save()
