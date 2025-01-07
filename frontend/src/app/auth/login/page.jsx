@@ -1,35 +1,21 @@
-import { login } from '@/libs/api'
-import Link from 'next/link'
-import { redirect } from 'next/navigation'
-import styles from './login.module.css'
+'use client';
 
-async function loginAction(formData) {
-  'use server'
-  
-  const credentials = {
-    email: formData.get('email'),
-    password: formData.get('password'),
-  }
-
-  try {
-    const response = await login(credentials)
-    if (response.access) {
-      redirect('/')
-    }
-    return { error: 'Invalid credentials' }
-  } catch (error) {
-    return { error: error.message }
-  }
-}
+import Link from 'next/link';
+import { loginAction } from '@/actions/login';
+import styles from './login.module.css';
+import { useActionState } from 'react';
 
 export default function LoginPage() {
+  const [state, formAction] = useActionState(loginAction, { error: null });
+
   return (
     <div className={styles.container}>
       <div className={styles.card}>
         <h1>Welcome Back</h1>
         <p className={styles.subtitle}>Login to your account</p>
         
-        <form action={loginAction} className={styles.form}>
+        {state.error && <p className={styles.error}>{state.error}</p>}
+        <form action={formAction} className={styles.form}>
           <div className={styles.formGroup}>
             <label htmlFor="email">Email</label>
             <input 

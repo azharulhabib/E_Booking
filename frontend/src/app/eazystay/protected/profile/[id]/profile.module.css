@@ -22,7 +22,8 @@
     max-width: 800px;
   }
   
-  h1 {
+  
+  .header1 {
     font-size: 1.75rem;
     color: #151B2B;
     margin-bottom: 0.5rem;
@@ -60,9 +61,11 @@
   }
   
   .actions {
+    justify-content: center;
     display: flex;
     gap: 1rem;
     margin-top: 1rem;
+    align-items: center;
   }
   
   .button {
@@ -119,6 +122,18 @@
   .userActions {
     display: flex;
     gap: 0.5rem;
+  }
+
+  .success {
+    color: green;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+  }
+
+  .error {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
   }
   
   

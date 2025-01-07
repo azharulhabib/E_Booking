@@ -58,6 +58,7 @@ class LoginView(TokenObtainPairView):
         # Add the user role to the response data
         response.data['user_role'] = user_role
         response.data['user_id'] = user.id
+        print(response.data)
         
         return response
 
@@ -114,7 +115,7 @@ class UserViewSet(ModelViewSet):
         current_user = self.request.user
         user_to_delete = self.get_object()
         
-        if not current_user.is_superuser:
+        if not (current_user.id == user_to_delete.id or current_user.is_superuser):
             return Response(
                 {'detail': 'Only Superusers can delete users.'},
                 status=status.HTTP_403_FORBIDDEN,
@@ -166,7 +167,12 @@ class RentalListingViewSet(ModelViewSet):
         # If none of the above, return an empty queryset
         else:
             return RentalListing.objects.none()
-            
+        
+    def create(self, request, *args, **kwargs):
+        current_user = self.request.user
+        owner = Owner.objects.get(id=current_user.id)
+        request.data['owner'] = owner
+        return super().create(request, *args, **kwargs)
     
     def update(self, request, *args, **kwargs):
         current_user = self.request.user
@@ -243,6 +249,7 @@ class PostRentalImage(APIView):
     def post(self, request):
         try:
             data = request.data
+            print('data', data)
             serializer = RentalImageSerializer(data=data)
             if serializer.is_valid():
                 serializer.save()

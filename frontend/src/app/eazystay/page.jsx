@@ -7,13 +7,13 @@ export default function Home() {
       <section className={styles.hero}>
         <div className="container">
           <h1>Find Your Perfect Home Away From Home</h1>
-          <p>Join thousands of happy travelers and property owners on E-Booking. Sign up today and start your journey!</p>
+          <p>Join thousands of happy travelers and property owners on EasyStay. Sign up today and start your journey!</p>
         </div>
       </section>
 
       <section className={styles.features}>
         <div className="container">
-          <h2>Why Choose E-Booking?</h2>
+          <h2>Why Choose EasyStay?</h2>
           <div className={styles.featureGrid}>
             <div className={styles.featureCard}>
               <div className={styles.icon}>🏠</div>

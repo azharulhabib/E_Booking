@@ -27,6 +27,11 @@ export const fetchClient = async (url, options = {}) => {
       return response;
     }
 
+    if (response.status === 204) {
+      return null;
+    }
+
+    console.log("fetchClient", response);
     return response.json();
   } catch (error) {
     console.error("Fetch error:", error);

@@ -2,16 +2,6 @@ import Link from 'next/link'
 import styles from './profile.module.css'
 
 export default function AdminDashboard({ users }) {
-  async function deleteUserAction(userId) {
-    'use server'
-    
-    try {
-      await deleteUser(userId)
-      router.refresh()
-    } catch (error) {
-      return { error: error.message }
-    }
-  }
 
   return (
     <div className={styles.container}>
@@ -30,16 +20,11 @@ export default function AdminDashboard({ users }) {
               
               <div className={styles.userActions}>
                 <Link 
-                  href={`/profile/${user.id}`}
+                  href={`/eazystay/protected/profile/${user.id}`}
                   className={styles.button}
                 >
                   Edit
                 </Link>
-                <form action={deleteUserAction.bind(null, user.id)}>
-                  <button type="submit" className={`${styles.button} ${styles.buttonDelete}`}>
-                    Delete
-                  </button>
-                </form>
               </div>
             </div>
           ))}

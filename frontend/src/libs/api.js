@@ -33,15 +33,20 @@ export const logout = async () => {
   cookieStore.delete('userRole');
 };
 
-export async function userId() {
+export async function getUserId() {
   const cookieStore = await cookies();
   return cookieStore.get('userId')?.value;
-}
+};
 
-export async function userRole() {
+export async function getUserRole() {
   const cookieStore = await cookies();
   return cookieStore.get('userRole')?.value;
-}
+};
+
+export async function getAccessToken() {
+  const cookieStore = await cookies();
+  return cookieStore.get('accessToken')?.value;
+};
 
 export const refreshToken = async () => {
   const cookieStore = await cookies();
@@ -73,7 +78,7 @@ export const refreshToken = async () => {
 };
 
 export const getUserById = async () => {
-  const id = await userId();
+  const id = await getUserId();
   const response = await fetchClient(`${API_BASE_URL}/users/${id}/`, {
     method: "GET",
   });
@@ -112,7 +117,7 @@ export const createOwner = async (user) => {
 };
 
 export const updateUser = async (user) => {
-  const id = await userId();
+  const id = await getUserId();
   const response = await fetchClient(`${API_BASE_URL}/users/${id}/`, {
     method: "PATCH",
     body: JSON.stringify(user),
@@ -122,12 +127,64 @@ export const updateUser = async (user) => {
   return response;
 };
 
-export const deleteUser = async () => {
-  const id = await userId();
+export const deleteUser = async (id=null) => {
+  if (!id) {
+    var id = await getUserId();
+  }
+
   const response = await fetchClient(`${API_BASE_URL}/users/${id}/`, {
+    method: "DELETE",
+  });
+
+  console.log("deleteUser", response);
+  return response;
+}
+
+export const getRentalListings = async () => {
+  const response = await fetchClient(`${API_BASE_URL}/rentallistings/`, {
+    method: "GET",
+  });
+
+  console.log("response", response);
+  return response;
+};
+
+
+export const getRentalListingById = async (id) => {
+  const response = await fetchClient(`${API_BASE_URL}/rentallistings/${id}/`, {
+    method: "GET",
+  });
+
+  console.log("response", response);
+  return response;
+};
+
+export const createRentalListing = async (listing) => {
+  const response = await fetchClient(`${API_BASE_URL}/rentallistings/`, {
+    method: "POST",
+    body: JSON.stringify(listing),
+  });
+
+  console.log("response", response);
+  return response;
+};
+
+export const updateRentalListing = async (listing) => {
+  const id = listing.id;
+  const response = await fetchClient(`${API_BASE_URL}/rentallistings/${id}/`, {
+    method: "PATCH",
+    body: JSON.stringify(listing),
+  });
+
+  console.log("response", response);
+  return response;
+};
+
+export const deleteRentalListing = async (id) => {
+  const response = await fetchClient(`${API_BASE_URL}/rentallistings/${id}/`, {
     method: "DELETE",
   });
 
   console.log("response", response);
   return response;
-}
+};

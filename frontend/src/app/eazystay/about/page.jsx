@@ -4,8 +4,8 @@ export default function About() {
   return (
     <main className={styles.about}>
       <div className="container">
-        <h1>About E-Booking</h1>
-        <p>E-Booking is your trusted partner in finding the perfect home to rent in Bangladesh. We connect tenants with property owners across the country, ensuring a hassle-free renting experience.</p>
+        <h1>About EasyStay</h1>
+        <p>EasyStay is your trusted partner in finding the perfect home to rent in Bangladesh. We connect tenants with property owners across the country, ensuring a hassle-free renting experience.</p>
         
         <div className={styles.mission}>
           <h2>Our Mission</h2>
