@@ -16,10 +16,10 @@ export default function Navbar() {
         </div>
         
         <div className={styles.auth}>
-          <Link href="/login" className="button button-outline">
+          <Link href="/auth/login" className="button button-outline">
             Log In
           </Link>
-          <Link href="/signup" className="button button-primary">
+          <Link href="/auth/signup" className="button button-primary">
             Sign Up
           </Link>
         </div>

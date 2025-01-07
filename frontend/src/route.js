@@ -1,6 +1,8 @@
 export const authRoutes = [
   '/auth/login',
   '/auth/signup',
+  '/auth/signup/customer',
+  '/auth/signup/owner'
 ]
 
 export const apiAuthPrefix = '/api/auth';

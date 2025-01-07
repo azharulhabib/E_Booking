@@ -5,11 +5,11 @@ export default function About() {
     <main className={styles.about}>
       <div className="container">
         <h1>About E-Booking</h1>
-        <p>E-Booking is your trusted partner in finding the perfect accommodation for your travels. We connect travelers with property owners worldwide, ensuring a seamless booking experience.</p>
+        <p>E-Booking is your trusted partner in finding the perfect home to rent in Bangladesh. We connect tenants with property owners across the country, ensuring a hassle-free renting experience.</p>
         
         <div className={styles.mission}>
           <h2>Our Mission</h2>
-          <p>To provide travelers with the best accommodation options while helping property owners maximize their rental potential.</p>
+          <p>To provide renters with the best housing options while helping property owners find reliable tenants and maximize their property's rental potential.</p>
         </div>
 
         <div className={styles.values}>

@@ -38,6 +38,11 @@ export async function userId() {
   return cookieStore.get('userId')?.value;
 }
 
+export async function userRole() {
+  const cookieStore = await cookies();
+  return cookieStore.get('userRole')?.value;
+}
+
 export const refreshToken = async () => {
   const cookieStore = await cookies();
   const refreshToken = cookieStore.get('refreshToken')?.value;
@@ -70,6 +75,15 @@ export const refreshToken = async () => {
 export const getUserById = async () => {
   const id = await userId();
   const response = await fetchClient(`${API_BASE_URL}/users/${id}/`, {
+    method: "GET",
+  });
+
+  console.log("response", response);
+  return response;
+};
+
+export const getUsers = async () => {
+  const response = await fetchClient(`${API_BASE_URL}/users/`, {
     method: "GET",
   });
 

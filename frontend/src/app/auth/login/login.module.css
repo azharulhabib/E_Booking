@@ -1,0 +1,114 @@
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background-color: #f8f9fa;
+  }
+  
+  .card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  .card h1 {
+    font-size: 1.75rem;
+    color: #151B2B;
+    margin-bottom: 0.5rem;
+  }
+  
+  .subtitle {
+    color: #666;
+    margin-bottom: 2rem;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .formGroup {
+    text-align: left;
+  }
+  
+  .formGroup label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #151B2B;
+    font-weight: 500;
+  }
+  
+  .formGroup input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+  
+  .formGroup input::placeholder {
+    color: #999;
+  }
+  
+  .button {
+    background-color: #151B2B;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 0.75rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  
+  .button:hover {
+    background-color: #1f2937;
+  }
+  
+  .forgotPassword {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.875rem;
+    display: block;
+    margin-bottom: 1rem;
+  }
+  
+  .forgotPassword:hover {
+    text-decoration: underline;
+  }
+  
+  .signup {
+    color: #666;
+    font-size: 0.875rem;
+  }
+  
+  .signup a {
+    color: #151B2B;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .signup a:hover {
+    text-decoration: underline;
+  }
+  
+  .footer {
+    margin-top: 2rem;
+    color: #666;
+    font-size: 0.875rem;
+  }
+  
+  

@@ -8,9 +8,6 @@ export default function Home() {
         <div className="container">
           <h1>Find Your Perfect Home Away From Home</h1>
           <p>Join thousands of happy travelers and property owners on E-Booking. Sign up today and start your journey!</p>
-          <Link href="/signup" className="button button-primary">
-            Sign Up as a Guest →
-          </Link>
         </div>
       </section>
 
@@ -46,9 +43,6 @@ export default function Home() {
             <span>✓ Verified properties</span>
             <span>✓ Best price guarantee</span>
           </div>
-          <Link href="/signup" className="button button-primary">
-            Sign Up for Free →
-          </Link>
         </div>
       </section>
 
