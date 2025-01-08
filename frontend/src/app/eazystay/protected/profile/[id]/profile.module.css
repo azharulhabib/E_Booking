@@ -136,4 +136,9 @@
     margin-top: 0.5rem;
   }
   
-  
+  .userDeleteButton {
+    background-color: #bd1212;
+    padding: 1rem;
+    color: white;
+    border: none;
+  }

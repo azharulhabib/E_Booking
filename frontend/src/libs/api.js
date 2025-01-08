@@ -229,3 +229,24 @@ export const updateBookingHistory = async (data) => {
   console.log("response", response);
   return response;
 };
+
+
+export const createPayment = async (data) => {
+  const response = await fetchClient(`${API_BASE_URL}/payments/`, {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+
+  console.log("response", response);
+  return response;
+};
+
+export const getPayments = async () => {
+  const response = await fetchClient(`${API_BASE_URL}/payments/`, {
+    method: "GET",
+  });
+
+  console.log("response", response);
+  return response;
+};
+

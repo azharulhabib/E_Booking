@@ -1,0 +1,71 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .container h1 {
+    margin-bottom: 2rem;
+    font-size: 2rem;
+  }
+  
+  .paymentsList {
+    display: grid;
+    gap: 1rem;
+  }
+  
+  .paymentCard {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+  }
+  
+  .paymentInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .amount {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1a2b3c;
+  }
+  
+  .date {
+    color: #666;
+    font-size: 0.875rem;
+  }
+  
+  .badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+  
+  .success {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+  }
+  
+  .pending {
+    background-color: #fff3e0;
+    color: #ef6c00;
+  }
+  
+  .empty {
+    text-align: center;
+    padding: 3rem;
+    color: #666;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+  }
+  
+  

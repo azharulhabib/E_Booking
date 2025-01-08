@@ -1,5 +1,5 @@
 'use server';
-import { updateUser, deleteUser } from '@/libs/api';
+import { createAdmin, updateUser, deleteUser } from '@/libs/api';
 
 export async function updateAction(formData) {
   try {
@@ -33,3 +33,27 @@ export async function deleteAction(id=null) {
     return { error: "Failed to delete profile. Please try again later." };
   }
 }
+
+export async function deleteUserAction(id) {
+  try {
+    const response = await deleteUser(id);
+    
+    return { success: true };
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    return { error: 'Failed to delete user' };
+  }
+}
+
+export async function createAdminAction(userData) {
+  try {
+    const response = await createAdmin(userData);
+    
+    console.log('createAdminAction', response);
+    return { success: true };
+  } catch (error) {
+    console.error('Error creating admin:', error);
+    return { error: 'Failed to create admin' };
+  }
+}
+

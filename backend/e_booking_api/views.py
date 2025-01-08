@@ -134,6 +134,10 @@ class UserViewSet(ModelViewSet):
 class AdminViewSet(UserViewSet):
     """Viewset for Admin model"""
     serializer_class = AdminSerializer
+    
+    def create(self, request, *args, **kwargs):
+        print(request.data)
+        return super().create(request, *args, **kwargs)
 
 class CustomerViewSet(UserViewSet):
     """Viewset for Customer model"""
@@ -289,7 +293,7 @@ class GetUtilityBillImageById(APIView):
                 {'error': 'listing_id parameter is required.'},
                 status=status.HTTP_400_BAD_REQUEST
             )
-        images = RentalImage.objects.filter(listing=listing)
+        images = UtilityBillImage.objects.filter(listing=listing)
         if images.exists():
             serializer = UtilityImageSerializer(images, many=True)
             return Response({'images': serializer.data}, status=status.HTTP_200_OK)
