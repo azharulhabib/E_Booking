@@ -19,8 +19,13 @@ export default async function Home() {
           </section>
           
           <section className={styles.listingsContainer}>
+            {console.log('listings', listings.listings)}
             {listings && listings.listings.map(listing => (
-              <ListingCard key={listing.id} listing={listing} />
+              <>
+                {listing.availability_status &&
+                <ListingCard key={listing.id} listing={listing} />
+                }
+              </>
             ))}
           </section>
         </>

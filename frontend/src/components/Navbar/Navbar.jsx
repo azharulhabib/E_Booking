@@ -32,9 +32,19 @@ export default async function Navbar() {
             </Link>
           </>
           }
-          {(userRole === "Employee") &&
-            <Link href="/eazystay/protected/dashboard" className="button button-outline">
+          {(userRole === "Owner") &&
+            <Link href="/eazystay/protected/owner-dashboard" className="button button-outline">
               Dashboard
+            </Link>
+          }
+          {(userRole === "Admin") &&
+            <Link href="/eazystay/protected/admin-dashboard" className="button button-outline">
+              Dashboard
+            </Link>
+          }
+          {(userRole === "Customer" || userRole === "Owner") &&
+            <Link href="/eazystay/protected/history" className="button button-outline">
+              History
             </Link>
           }
           {userRole &&

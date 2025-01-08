@@ -47,7 +47,7 @@ class LoginView(TokenObtainPairView):
         if Customer.objects.filter(id=user.id).exists():
             user_role = 'Customer'
         elif Owner.objects.filter(id=user.id).exists():
-            user_role = 'Employee'
+            user_role = 'Owner'
         elif Admin.objects.filter(id=user.id).exists():
             user_role = 'Admin'
         elif user.is_superuser:
@@ -372,11 +372,18 @@ class BookingViewSet(ModelViewSet):
         elif Customer.objects.filter(id=user.id).exists():
             return Booking.objects.filter(customer=user)
         
-        # If none of the above, return an empty queryset
-        elif user.is_staff:
-            return Booking.objects.all()
         else:
             return Booking.objects.none()
+        
+    def create(self, request, *args, **kwargs):
+        current_user = self.request.user
+        customer = Customer.objects.get(id=current_user.id)
+        
+        if not customer:
+            return Response({'error': 'Customer not found.'}, status=status.HTTP_404_NOT_FOUND)
+        
+        request.data['customer'] = customer
+        return super().create(request, *args, **kwargs)
     
 class PaymentViewSet(ModelViewSet):
     """Viewset for Payment model"""

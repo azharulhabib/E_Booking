@@ -1,0 +1,137 @@
+.historyPage {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .listingsList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .listingCard {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    background: white;
+  }
+  
+  .listingInfo h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .listingDetails {
+    color: #666;
+    margin-bottom: 0.5rem;
+  }
+  
+  .location {
+    color: #666;
+    margin-bottom: 0.5rem;
+  }
+  
+  .price {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .status {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    text-align: center;
+    width: fit-content;
+  }
+  
+  .statusPending {
+    background-color: #fff3dc;
+    color: #996b00;
+  }
+  
+  .statusAvailable {
+    background-color: #e3f2fd;
+    color: #0055a4;
+  }
+  
+  .actionButtons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .acceptButton,
+  .rejectButton {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+  }
+  
+  .acceptButton {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .acceptButton:hover {
+    background-color: #388e3c;
+  }
+  
+  .rejectButton {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .rejectButton:hover {
+    background-color: #d32f2f;
+  }
+  
+  .acceptButton:disabled,
+  .rejectButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .statusAccepted {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+  }
+  
+  .statusRejected {
+    background-color: #ffebee;
+    color: #c62828;
+  }
+  
+  .statusPending {
+    background-color: #fff3e0;
+    color: #ef6c00;
+  }
+  
+  .viewDetailButton {
+    background-color: #1a2b3c;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    transition: background-color 0.2s;
+  }
+  
+  .viewDetailButton:hover {
+    background-color: #2c3e50;
+  }

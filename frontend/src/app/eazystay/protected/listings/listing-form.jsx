@@ -103,10 +103,6 @@ export default function ListingForm({ initialData }) {
           'Authorization': `Bearer ${accessToken}`, // Add the Authorization header
         },
       });
-
-      if (response.ok) {
-        setStep(3)
-      };
     } catch (error) {
       console.error('Error uploading rental image:', error)
     };
@@ -136,7 +132,7 @@ export default function ListingForm({ initialData }) {
 
   async function handleCompleteSubmit(e) {
     e.preventDefault();
-    router.push('/eazystay/protected/dashboard')
+    router.push('/eazystay/protected/owner-dashboard')
   };
 
   return (

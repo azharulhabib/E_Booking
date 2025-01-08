@@ -42,12 +42,14 @@ export default function ListingCard({ listing }) {
       </div>
       
       <div className={styles.listingActions}>
+        {listing.approved !== 'rejected' &&
         <Link 
           href={`/eazystay/protected/listings/${listing.id}/edit`}
           className={`${styles.button} ${styles.editButton}`}
         >
           Edit
         </Link>
+        }
         <button 
           onClick={handleDelete}
           className={`${styles.button} ${styles.deleteButton}`}

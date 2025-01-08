@@ -20,11 +20,11 @@ export default function ListingCard({ listing }) {
           <span className={styles.priceAmount}>${Math.abs(listing.price)}</span>
           <span className={styles.pricePeriod}>/month</span>
         </div>
-        <Link href={`/listings/${listing.slug}`} className={styles.viewDetailsBtn}>
+        <Link href={`/eazystay/protected/listings/${listing.id}`} className={styles.viewDetailsBtn}>
           View Details
         </Link>
       </div>
     </div>
   );
-}
+};
 

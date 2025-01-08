@@ -1,6 +1,6 @@
 'use server';
 
-import { login, getAccessToken } from '@/libs/api';
+import { login, getAccessToken, getUserRole } from '@/libs/api';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
@@ -28,3 +28,13 @@ export async function retrieveAccessToken() {
   const accessToken = await getAccessToken();
   return accessToken;
 };
+
+export async function retrieveUserRole() {
+  const userRole = await getUserRole();
+  return userRole;
+};
+
+export async function retrieveUserId() {
+  const cookieStore = await cookies();
+  return cookieStore.get('userId')?.value;
+}

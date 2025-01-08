@@ -9,6 +9,14 @@ export default function AdminDashboard({ users }) {
         <h1>User Management</h1>
         <p className={styles.subtitle}>Manage all users in the system</p>
         
+        <div className={styles.userActions}>
+          {/* <Link 
+            href={}
+            className={styles.button}
+          >
+            Create New Admin
+          </Link> */}
+        </div>
         <div className={styles.usersList}>
           {users.map((user) => (
             <div key={user.id} className={styles.userItem}>
@@ -16,15 +24,6 @@ export default function AdminDashboard({ users }) {
                 <h3>{user.name}</h3>
                 <p>{user.email}</p>
                 <p>Role: {user.role}</p>
-              </div>
-              
-              <div className={styles.userActions}>
-                <Link 
-                  href={`/eazystay/protected/profile/${user.id}`}
-                  className={styles.button}
-                >
-                  Edit
-                </Link>
               </div>
             </div>
           ))}
