@@ -90,7 +90,7 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT = {
     # Token Lifetimes
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
 
     # Token Rotation and Blacklisting
@@ -203,3 +203,4 @@ if TESTING:
     MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media', 'test_media')
 else:
     MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media')

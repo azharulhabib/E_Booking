@@ -47,9 +47,9 @@ class LoginView(TokenObtainPairView):
         if Customer.objects.filter(id=user.id).exists():
             user_role = 'Customer'
         elif Owner.objects.filter(id=user.id).exists():
-            user_role = 'Employee'
+            user_role = 'Owner'
         elif Admin.objects.filter(id=user.id).exists():
-            user_role = 'Supplier'
+            user_role = 'Admin'
         elif user.is_superuser:
             user_role = 'Superuser'
         else:
@@ -58,6 +58,7 @@ class LoginView(TokenObtainPairView):
         # Add the user role to the response data
         response.data['user_role'] = user_role
         response.data['user_id'] = user.id
+        print(response.data)
         
         return response
 
@@ -114,7 +115,7 @@ class UserViewSet(ModelViewSet):
         current_user = self.request.user
         user_to_delete = self.get_object()
         
-        if not current_user.is_superuser:
+        if not (current_user.id == user_to_delete.id or current_user.is_superuser):
             return Response(
                 {'detail': 'Only Superusers can delete users.'},
                 status=status.HTTP_403_FORBIDDEN,
@@ -133,6 +134,10 @@ class UserViewSet(ModelViewSet):
 class AdminViewSet(UserViewSet):
     """Viewset for Admin model"""
     serializer_class = AdminSerializer
+    
+    def create(self, request, *args, **kwargs):
+        print(request.data)
+        return super().create(request, *args, **kwargs)
 
 class CustomerViewSet(UserViewSet):
     """Viewset for Customer model"""
@@ -166,7 +171,12 @@ class RentalListingViewSet(ModelViewSet):
         # If none of the above, return an empty queryset
         else:
             return RentalListing.objects.none()
-            
+        
+    def create(self, request, *args, **kwargs):
+        current_user = self.request.user
+        owner = Owner.objects.get(id=current_user.id)
+        request.data['owner'] = owner
+        return super().create(request, *args, **kwargs)
     
     def update(self, request, *args, **kwargs):
         current_user = self.request.user
@@ -283,7 +293,7 @@ class GetUtilityBillImageById(APIView):
                 {'error': 'listing_id parameter is required.'},
                 status=status.HTTP_400_BAD_REQUEST
             )
-        images = RentalImage.objects.filter(listing=listing)
+        images = UtilityBillImage.objects.filter(listing=listing)
         if images.exists():
             serializer = UtilityImageSerializer(images, many=True)
             return Response({'images': serializer.data}, status=status.HTTP_200_OK)
@@ -366,11 +376,18 @@ class BookingViewSet(ModelViewSet):
         elif Customer.objects.filter(id=user.id).exists():
             return Booking.objects.filter(customer=user)
         
-        # If none of the above, return an empty queryset
-        elif user.is_staff:
-            return Booking.objects.all()
         else:
             return Booking.objects.none()
+        
+    def create(self, request, *args, **kwargs):
+        current_user = self.request.user
+        customer = Customer.objects.get(id=current_user.id)
+        
+        if not customer:
+            return Response({'error': 'Customer not found.'}, status=status.HTTP_404_NOT_FOUND)
+        
+        request.data['customer'] = customer
+        return super().create(request, *args, **kwargs)
     
 class PaymentViewSet(ModelViewSet):
     """Viewset for Payment model"""

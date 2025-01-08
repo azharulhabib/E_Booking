@@ -1,41 +1,21 @@
-import { createOwner } from '@/libs/api'
-import Link from 'next/link'
-import { redirect } from 'next/navigation'
-import styles from '../form.module.css'
+'use client';
+import Link from 'next/link';
+import { useActionState } from 'react';
+import { signUpOwnerAction } from '@/actions/signup';
+import styles from '../form.module.css';
 
-async function signupAction(formData) {
-  'use server'
-  
-  if (formData.get('password') !== formData.get('confirmPassword')) {
-    return { error: 'Passwords do not match' }
-  }
-
-  const userData = {
-    email: formData.get('email'),
-    name: formData.get('name'),
-    phone: formData.get('phone'),
-    password: formData.get('password'),
-  }
-
-  try {
-    const response = await createOwner(userData)
-    if (response.id) {
-      redirect('/login')
-    }
-    return { error: 'Registration failed' }
-  } catch (error) {
-    return { error: error.message }
-  }
-}
 
 export default function OwnerSignup() {
+  const [state, formAction] = useActionState(signUpOwnerAction, { error: null });
+
   return (
     <div className={styles.container}>
       <div className={styles.card}>
         <h1>Sign Up as an Owner</h1>
         <p className={styles.subtitle}>Create your account to list properties</p>
         
-        <form action={signupAction} className={styles.form}>
+        {state.error && <p className={styles.error}>{state.error}</p>}
+        <form action={formAction} className={styles.form}>
           <div className={styles.formGroup}>
             <label htmlFor="email">Email</label>
             <input 

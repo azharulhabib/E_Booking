@@ -1,0 +1,161 @@
+.container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .header h1 {
+    font-size: 2rem;
+    font-weight: 600;
+  }
+  
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .listings {
+    margin-top: 2rem;
+  }
+  
+  .listings h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .listingsGrid {
+    display: grid;
+    gap: 1.5rem;
+  }
+  
+  .listingCard {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+  }
+  
+  .utilityBillSection {
+    width: 100px;
+  }
+  
+  .utilityBillThumb {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .utilityBillThumb:hover {
+    transform: scale(1.05);
+  }
+  
+  .listingInfo h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .listingDetails {
+    display: flex;
+    gap: 0.5rem;
+    color: #666;
+    margin-top: 0.5rem;
+  }
+  
+  .badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+  
+  .pending {
+    background-color: #fff3dc;
+    color: #996b00;
+  }
+  
+  .accepted {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+  }
+  
+  .rejected {
+    background-color: #ffebee;
+    color: #c62828;
+  }
+  
+  .available {
+    background-color: #e3f2fd;
+    color: #0055a4;
+  }
+  
+  .unavailable {
+    background-color: #f5f5f5;
+    color: #666;
+  }
+  
+  .listingActions {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .acceptButton {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .acceptButton:hover:not(:disabled) {
+    background-color: #388e3c;
+  }
+  
+  .rejectButton {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .rejectButton:hover:not(:disabled) {
+    background-color: #d32f2f;
+  }
+  
+  .empty {
+    text-align: center;
+    padding: 2rem;
+    color: #666;
+  }
+  
+  .error {
+    color: #d32f2f;
+    text-align: center;
+    padding: 2rem;
+  }
+  
+  

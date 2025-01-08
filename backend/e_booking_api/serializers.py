@@ -43,7 +43,7 @@ class AdminSerializer(UserSerializer):
         model = Admin
         
     def create(self, validated_data):
-        password = validated_data.pop('password', None)
+        password = validated_data['password']
         admin = Admin.objects.create(**validated_data)
         
         if password:
@@ -57,7 +57,7 @@ class CustomerSerializer(UserSerializer):
         model = Customer
        
     def create(self, validated_data):
-        password = validated_data.pop('password', None)
+        password = validated_data['password']
         customer = Customer.objects.create(**validated_data)
         
         if password:
@@ -71,7 +71,7 @@ class OwnerSerializer(UserSerializer):
         model = Owner
     
     def create(self, validated_data):
-        password = validated_data.pop('password', None)
+        password = validated_data['password']
         owner = Owner.objects.create(**validated_data)
         
         if password:

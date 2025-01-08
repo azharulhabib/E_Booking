@@ -1,41 +1,21 @@
-import { createCustomer } from '@/libs/api'
-import Link from 'next/link'
-import { redirect } from 'next/navigation'
-import styles from '../form.module.css'
+'use client';
+import Link from 'next/link';
+import styles from '../form.module.css';
+import { useActionState } from 'react';
+import { signUpCustomerAction } from '@/actions/signup';
 
-async function signupAction(formData) {
-  'use server'
-  
-  if (formData.get('password') !== formData.get('confirmPassword')) {
-    return { error: 'Passwords do not match' }
-  }
-
-  const userData = {
-    email: formData.get('email'),
-    name: formData.get('name'),
-    phone: formData.get('phone'),
-    password: formData.get('password'),
-  }
-
-  try {
-    const response = await createCustomer(userData)
-    if (response.id) {
-      redirect('/login')
-    }
-    return { error: 'Registration failed' }
-  } catch (error) {
-    return { error: error.message }
-  }
-}
 
 export default function CustomerSignup() {
+  const [state, formAction] = useActionState(signUpCustomerAction, { error: null });
+
   return (
     <div className={styles.container}>
       <div className={styles.card}>
         <h1>Sign Up as a Customer</h1>
         <p className={styles.subtitle}>Create your account to start booking</p>
         
-        <form action={signupAction} className={styles.form}>
+        {state.error && <p className={styles.error}>{state.error}</p>}
+        <form action={formAction} className={styles.form}>
           <div className={styles.formGroup}>
             <label htmlFor="email">Email</label>
             <input 
